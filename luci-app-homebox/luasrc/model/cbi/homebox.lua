@@ -1,4 +1,3 @@
-
 local m, s
 
 m = Map("homebox", translate("Homebox"), translate("Homebox is a tool for local network speed testing"))
@@ -12,5 +11,3 @@ s.anonymous=true
 s:option(Flag, "enabled", translate("Enable")).rmempty=false
 
 return m
-
-

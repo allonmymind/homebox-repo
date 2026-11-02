@@ -11,14 +11,14 @@ function index()
 end
 
 function homebox_status()
-	local sys  = require "luci.sys"
-	local uci  = require "luci.model.uci".cursor()
+	local sys = require "luci.sys"
+	local uci = require "luci.model.uci".cursor()
 
-	local status = {
-		running = (sys.call("pidof homebox >/dev/null") == 0),
-		port = 3300
-	}
+	-- pidof 是进程是否真实存在的权威判断
+	local running = (sys.call("pidof homebox >/dev/null") == 0)
+
+	local port = uci:get("homebox", "@homebox[0]", "port") or "3300"
 
 	luci.http.prepare_content("application/json")
-	luci.http.write_json(status)
+	luci.http.write_json({ running = running, port = tonumber(port) or 3300 })
 end
